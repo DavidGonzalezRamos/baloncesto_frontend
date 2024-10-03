@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import TournamentForm from "../../components/tournaments/TournamentForm";
 import { TournamentFormData } from "../../types";
 import { createTournament } from "../../api/TournamentAPI";
@@ -20,15 +21,29 @@ export default function CreateTournament() {
     defaultValues: initialValues,
   });
 
-  const handleForm = async (formData: TournamentFormData) => {
-    const data = await createTournament(formData);
-    Swal.fire({
-      title: "Felicidades!",
-      text: data,
-      icon: "success",
-      confirmButtonText: "Continuar",
-    });
-    navigate("/tournaments");
+  const mutation = useMutation({
+    mutationFn: createTournament,
+    onError: (error) => {
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "Continuar",
+      });
+    },
+    onSuccess: (data) => {
+      Swal.fire({
+        title: "Felicidades!",
+        text: data,
+        icon: "success",
+        confirmButtonText: "Continuar",
+      });
+      navigate("/tournaments");
+    },
+  });
+
+  const handleForm = (formData: TournamentFormData) => {
+    mutation.mutate(formData);
   };
 
   return (
