@@ -46,12 +46,12 @@ export default function MenuTournaments() {
   if (data)
     return (
       <>
-        <div className=" bg-white shadow-lg rounded-xl border-b-4 fixed top-8 p-4 w-4/5">
+        <div className="bg-white shadow-lg rounded-xl border-b-4 top-8 p-4 mx-auto flex justify-between mt-7">
           <h1 className="font-mono text-5xl text-black font-extrabold uppercase">
             Torneos
           </h1>
         </div>
-        <div>
+        <div className="mt-8">
           <div className="p-6 bg-white rounded-xl shadow-md mb-7">
             <h2 className="font-mono text-3xl  text-black">
               Torneos anteriores
@@ -76,7 +76,7 @@ export default function MenuTournaments() {
                   <div className="flex min-w-0 gap-x-4">
                     <div className="min-w-0 flex-auto space-y-2">
                       <Link
-                        to={``}
+                        to={`/tournaments/${tournament._id}`}
                         className="text-gray-600 cursor-pointer hover:underline text-3xl font-bold"
                       >
                         {tournament.tournamentName}
@@ -127,7 +127,7 @@ export default function MenuTournaments() {
                         <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                           <MenuItem>
                             <Link
-                              to={``}
+                              to={`/tournaments/${tournament._id}`}
                               className="block px-3 py-1 text-sm leading-6 text-gray-900"
                             >
                               Ver Torneo

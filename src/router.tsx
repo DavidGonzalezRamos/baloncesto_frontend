@@ -4,6 +4,7 @@ import MenuFirst from "./views/MenuFirst";
 import CreateTournamentView from "./views/tournaments/CreateTournamentView";
 import MenuTournamentsView from "./views/tournaments/MenuTournamentsView";
 import EditTournamentView from "./views/tournaments/EditTournamentView";
+import TournamentTeamsView from "./views/tournaments/TournamentTeamsView";
 
 export default function Router() {
   return (
@@ -12,6 +13,10 @@ export default function Router() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<MenuFirst />} index />
           <Route path="/tournaments" element={<MenuTournamentsView />} />
+          <Route
+            path="/tournaments/:tournamentId"
+            element={<TournamentTeamsView />}
+          />
         </Route>
         <Route path="/tournaments/create" element={<CreateTournamentView />} />
         <Route

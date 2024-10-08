@@ -106,8 +106,8 @@ export default function AppLayout() {
         </aside>
 
         {/* Main content */}
-        <div className="flex-grow">
-          <main className="mt-36 px-8">
+        <div className="w-4/5">
+          <main className="px-8">
             <Outlet />
           </main>
         </div>
