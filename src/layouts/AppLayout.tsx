@@ -12,7 +12,7 @@ export default function AppLayout() {
     <>
       <div className="flex h-screen">
         {/* Sidebar */}
-        <aside className="bg-zinc-700 w-1/5 p-6 flex flex-col justify-between text-white rounded-xl m-4 shadow-lg">
+        <aside className="bg-blue-700 w-1/5 p-6 flex flex-col justify-between text-white rounded-xl m-4 shadow-lg">
           {/* Perfil */}
           <div className="text-center mb-6">
             <img
@@ -29,7 +29,7 @@ export default function AppLayout() {
                 to="/"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center p-3 font-sans font-medium text-lg bg-zinc-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"
+                    ? "flex items-center p-3 font-sans font-medium text-lg bg-blue-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"
                     : "flex items-center p-3 font-sans font-medium text-lg opacity-80 hover:bg-white hover:bg-opacity-20 rounded-lg transition duration-300 ease-in-out"
                 }
               >
@@ -42,7 +42,7 @@ export default function AppLayout() {
                 to="/tournaments"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center p-3 font-sans font-medium text-lg bg-zinc-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"
+                    ? "flex items-center p-3 font-sans font-medium text-lg bg-blue-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"
                     : "flex items-center p-3 font-sans font-medium text-lg opacity-80 hover:bg-white hover:bg-opacity-20 rounded-lg transition duration-300 ease-in-out"
                 }
               >
@@ -55,7 +55,7 @@ export default function AppLayout() {
                 to="/partidos"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center p-3 font-sans font-medium text-lg bg-zinc-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"
+                    ? "flex items-center p-3 font-sans font-medium text-lg bg-blue-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"
                     : "flex items-center p-3 font-sans font-medium text-lg opacity-80 hover:bg-white hover:bg-opacity-20 rounded-lg transition duration-300 ease-in-out"
                 }
               >
@@ -68,7 +68,7 @@ export default function AppLayout() {
                 to="/equipos"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center p-3 font-sans font-medium text-lg bg-zinc-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"
+                    ? "flex items-center p-3 font-sans font-medium text-lg bg-blue-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"
                     : "flex items-center p-3 font-sans font-medium text-lg opacity-80 hover:bg-white hover:bg-opacity-20 rounded-lg transition duration-300 ease-in-out"
                 }
               >
@@ -81,7 +81,7 @@ export default function AppLayout() {
                 to="/jugador"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center p-3 font-sans font-medium text-lg bg-zinc-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"
+                    ? "flex items-center p-3 font-sans font-medium text-lg bg-blue-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"
                     : "flex items-center p-3 font-sans font-medium text-lg opacity-80 hover:bg-white hover:bg-opacity-20 rounded-lg transition duration-300 ease-in-out"
                 }
               >

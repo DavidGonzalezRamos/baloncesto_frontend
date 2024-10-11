@@ -16,7 +16,7 @@ export async function createTeam({formData, tournamentId}: Pick<TeamAPI, 'formDa
     return data
   } catch (error) {
     if(isAxiosError(error) && error.response){
-      throw new Error(error.response.data.message)
+      throw new Error(error.response.data.error)
     }
   }
 }  
@@ -28,7 +28,7 @@ export async function getTeamById({tournamentId, teamId}: Pick<TeamAPI, 'tournam
     return data
   } catch (error) {
     if(isAxiosError(error) && error.response){
-      throw new Error(error.response.data.message)
+      throw new Error(error.response.data.error)
     }
   }
 }
@@ -40,7 +40,7 @@ export async function updateTeam({tournamentId, teamId, formData}: Pick<TeamAPI,
     return data
   } catch (error) {
     if(isAxiosError(error) && error.response){
-      throw new Error(error.response.data.message)
+      throw new Error(error.response.data.error)
     }
   }
 }
@@ -52,7 +52,7 @@ export async function deleteTeam({tournamentId, teamId}: Pick<TeamAPI, 'tourname
     return data
   } catch (error) {
     if(isAxiosError(error) && error.response){
-      throw new Error(error.response.data.message)
+      throw new Error(error.response.data.error)
     }
   }
 }

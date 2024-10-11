@@ -122,7 +122,7 @@ export default function EditTeamModal({ data, teamId }: EditTeamModalProps) {
                   <TeamForm register={register} errors={errors} />
                   <input
                     type="submit"
-                    className=" bg-zinc-600 hover:bg-zinc-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
+                    className=" bg-blue-600 hover:bg-blue-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
                     value="Guardar Equipo"
                   />
                 </form>

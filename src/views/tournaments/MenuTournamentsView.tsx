@@ -46,13 +46,13 @@ export default function MenuTournaments() {
   if (data)
     return (
       <>
-        <div className="bg-white shadow-lg rounded-xl border-b-4 top-8 p-4 mx-auto flex justify-between mt-7">
+        <div className="bg-blue-200  rounded-xl  top-8 p-4 mx-auto flex justify-between mt-7">
           <h1 className="font-mono text-5xl text-black font-extrabold uppercase">
             Torneos
           </h1>
         </div>
         <div className="mt-8">
-          <div className="p-6 bg-white rounded-xl shadow-md mb-7">
+          <div className="p-6 bg-blue-200 rounded-xl shadow-md mb-7">
             <h2 className="font-mono text-3xl  text-black">
               Torneos anteriores
             </h2>
@@ -66,7 +66,7 @@ export default function MenuTournaments() {
           <>
             <ul
               role="list"
-              className="divide-y divide-gray-100 border border-gray-100 mt-10 bg-white shadow-lg rounded-xl"
+              className="divide-y divide-blue-100 border border-blue-100 mt-10 bg-blue-200 shadow-lg rounded-xl"
             >
               {data.map((tournament) => (
                 <li
@@ -81,7 +81,7 @@ export default function MenuTournaments() {
                       >
                         {tournament.tournamentName}
                       </Link>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-600">
                         Fecha de inicio:{" "}
                         {new Date(tournament.dateStart).toLocaleDateString(
                           "es-ES",
@@ -92,7 +92,7 @@ export default function MenuTournaments() {
                           }
                         )}
                       </p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-600">
                         Fecha de término:{" "}
                         {new Date(tournament.dateEnd).toLocaleDateString(
                           "es-ES",
@@ -160,18 +160,18 @@ export default function MenuTournaments() {
 
             {/* Mostrar el botón solo si hay menos de 2 torneos */}
             {data.length < 2 && (
-              <button className="font-mono text-2xl font-semibold bg-gradient-to-b from-zinc-300 to-zinc-600 text-white py-4 px-12 rounded-full mt-7">
+              <button className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-4 px-12 rounded-full mt-7">
                 <Link to="/tournaments/create">Crear Nuevo Torneo</Link>
               </button>
             )}
           </>
         ) : (
-          <div className="p-6 bg-white rounded-lg shadow-md mb-6 text-center ">
+          <div className="p-6 bg-blue-200 rounded-lg shadow-md mb-6 text-center ">
             <p className="font-mono text-2xl py-20 text-black">
               Actualmente no hay un torneo en curso
             </p>
             {/* Si no hay torneos, siempre se muestra el botón */}
-            <button className="font-mono text-2xl font-semibold bg-gradient-to-b from-zinc-300 to-zinc-600 text-white py-4 px-12 rounded-full">
+            <button className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-black py-4 px-12 rounded-full">
               <Link to="/tournaments/create">Crear Nuevo Torneo</Link>
             </button>
           </div>

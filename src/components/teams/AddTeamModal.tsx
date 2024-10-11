@@ -42,7 +42,7 @@ export default function AddTeamModal() {
 
   const { mutate } = useMutation({
     mutationFn: createTeam,
-    onError: (error: Error) => {
+    onError: (error) => {
       Swal.fire({
         title: "Error",
         text: error.message,
@@ -52,7 +52,7 @@ export default function AddTeamModal() {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ["editTournament", tournamentId],
+        queryKey: ["tournament", tournamentId],
       });
       Swal.fire({
         title: "Felicidades!",
@@ -123,7 +123,7 @@ export default function AddTeamModal() {
                     <input
                       type="submit"
                       value="Guardar Equipo"
-                      className="text-black bg-zinc-400 font-bold py-3 px-8 rounded-full shadow-md hover:bg-white transition-all w-full"
+                      className="text-black bg-blue-400 font-bold py-3 px-8 rounded-full shadow-md hover:bg-blue-600 transition-all w-full"
                     />
                   </form>
                 </DialogPanel>

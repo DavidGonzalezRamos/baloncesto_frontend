@@ -66,7 +66,7 @@ export default function TeamList({ teams }: TeamListProps) {
           <tbody>
             {teams.map((team) => (
               <tr key={team._id}>
-                <td className="text-gray-600 cursor-pointer hover:underline text-3xl font-bold">
+                <td className="text-black cursor-pointer hover:underline text-3xl font-bold">
                   <button type="button">{team.nameTeam}</button>
                 </td>
                 <td className="text-2xl">{team.nameCoach}</td>
@@ -74,7 +74,7 @@ export default function TeamList({ teams }: TeamListProps) {
                 <td className="text-2xl">
                   <div className="flex shrink-0  gap-x-6">
                     <Menu as="div" className="relative flex-none">
-                      <MenuButton className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
+                      <MenuButton className="-m-2.5 block p-2.5 text-blue-500 hover:text-gray-900">
                         <span className="sr-only">opciones</span>
                         <FontAwesomeIcon
                           icon={faAnglesRight}
