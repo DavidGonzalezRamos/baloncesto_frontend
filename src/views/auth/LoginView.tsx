@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form";
 import { UserLoginForm } from "../../types";
 import ErrorMessage from "../../components/ErrorMessage";
 import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "../../api/AuthAPI";
+import Swal from "sweetalert2";
 
 export default function LoginView() {
   const initialValues: UserLoginForm = {
@@ -14,10 +17,35 @@ export default function LoginView() {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
-  const handleLogin = (formData: UserLoginForm) => {};
+  const { mutate } = useMutation({
+    mutationFn: loginUser,
+    onError: (error) => {
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "Continuar",
+      });
+    },
+    onSuccess: (data) => {
+      Swal.fire({
+        title: "Felicidades!",
+        text: data,
+        icon: "success",
+        confirmButtonText: "Continuar",
+      });
+    },
+  });
+
+  const handleLogin = (formData: UserLoginForm) => {
+    mutate(formData);
+  };
 
   return (
     <>
+      <p className="font-mono font-semibold mt-6 text-center">
+        Ingresa tu usuario y contraseña para continuar
+      </p>
       <form
         onSubmit={handleSubmit(handleLogin)}
         className="space-y-8 p-24 bg-white font-mono"
@@ -73,6 +101,16 @@ export default function LoginView() {
             className="text-blue-500 font-bold underline"
           >
             Registrate aquí
+          </Link>
+        </p>
+
+        <p>
+          ¿Olvidaste tu contraseña? {""}
+          <Link
+            to={"/auth/forgot-password"}
+            className="text-blue-500 font-bold underline"
+          >
+            Reestablecer aquí
           </Link>
         </p>
       </nav>

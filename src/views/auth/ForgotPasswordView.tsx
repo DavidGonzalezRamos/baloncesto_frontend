@@ -1,16 +1,15 @@
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { RequestConfirmationCodeForm } from "../../types";
+import { Link } from "react-router-dom";
+import { ForgotPasswordForm } from "../../types";
 import ErrorMessage from "../../components/ErrorMessage";
+import { forgotPassword } from "../../api/AuthAPI";
 import { useMutation } from "@tanstack/react-query";
-import { requestConfirmationCode } from "../../api/AuthAPI";
 import Swal from "sweetalert2";
 
-export default function RegisterView() {
-  const initialValues: RequestConfirmationCodeForm = {
+export default function ForgotPasswordView() {
+  const initialValues: ForgotPasswordForm = {
     email: "",
   };
-
   const {
     register,
     handleSubmit,
@@ -19,7 +18,7 @@ export default function RegisterView() {
   } = useForm({ defaultValues: initialValues });
 
   const { mutate } = useMutation({
-    mutationFn: requestConfirmationCode,
+    mutationFn: forgotPassword,
     onError: (error) => {
       Swal.fire({
         title: "Error",
@@ -35,27 +34,26 @@ export default function RegisterView() {
         icon: "success",
         confirmButtonText: "Continuar",
       });
+      reset();
     },
   });
 
-  const handleRequestCode = (formData: RequestConfirmationCodeForm) => {
+  const handleForgotPassword = (formData: ForgotPasswordForm) => {
     mutate(formData);
-    reset();
   };
 
   return (
     <>
-      <h1 className="text-4xl font-black mt-14 font-mono">
-        Solicitar Código de Confirmación
-      </h1>
-      <p className="text-2xl font-light  mt-5 font-mono">
-        Coloca tu e-mail para recibir {""}
-        <span className=" text-blue-500 font-bold"> un nuevo código</span>
+      <p className="text-xl font-mono mt-14 text-center">
+        Inserte su email de registro para {""}
+        <span className=" text-blue-500 font-bold">
+          {" "}
+          reestablecer tu constraseña
+        </span>
       </p>
-
       <form
-        onSubmit={handleSubmit(handleRequestCode)}
-        className="space-y-8 p-10 rounded-lg bg-gray-300 mt-10 font-mono"
+        onSubmit={handleSubmit(handleForgotPassword)}
+        className="space-y-8 p-10  bg-gray-300 mt-10 font-mono"
         noValidate
       >
         <div className="flex flex-col gap-5">
@@ -66,7 +64,7 @@ export default function RegisterView() {
             id="email"
             type="email"
             placeholder="Email de Registro"
-            className="w-full p-3 rounded-lg border-gray-300 border"
+            className="w-full p-3  border-gray-300 border"
             {...register("email", {
               required: "El Email de registro es obligatorio",
               pattern: {
@@ -80,24 +78,28 @@ export default function RegisterView() {
 
         <input
           type="submit"
-          value="Enviar Código"
-          className="bg-blue-600 hover:bg-blue-700 w-full p-3 rounded-lg text-white font-black  text-xl cursor-pointer"
+          value="Enviar Instrucciones"
+          className="bg-blue-600 hover:bg-blue-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
         />
       </form>
-
-      <nav className="mt-10 flex flex-col space-y-4 font-mono">
-        <p className="text-center">
-          {" "}
-          ¿Ya tienes cuenta?{" "}
-          <Link to="/auth/login" className="underline">
-            Iniciar Sesión
+      <nav className="flex-col flex space-y-4 text-center font-mono mt-8">
+        <p>
+          ¿Ya tienes cuenta? {""}
+          <Link
+            to={"/auth/login"}
+            className="text-blue-500 font-bold underline"
+          >
+            Inicia sesión aquí
           </Link>
         </p>
 
-        <p className="text-center">
-          ¿Olvidaste tu contraseña?{" "}
-          <Link to="/auth/forgot-password" className="underline">
-            Reestablecer
+        <p>
+          ¿No tienes Cuenta? {""}
+          <Link
+            to={"/auth/register"}
+            className="text-blue-500 font-bold underline"
+          >
+            Registrate aquí
           </Link>
         </p>
       </nav>

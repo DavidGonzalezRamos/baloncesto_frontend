@@ -9,9 +9,6 @@ export default function AuthLayout() {
         <h3 className="font-mono font-bold text-4xl">
           Estadísticas Baloncesto IPN
         </h3>
-        <p className="font-mono font-semibold">
-          Ingresa tu usuario y contraseña para continuar
-        </p>
         <div className="mx-auto w-[550px]">
           <Outlet />{" "}
         </div>

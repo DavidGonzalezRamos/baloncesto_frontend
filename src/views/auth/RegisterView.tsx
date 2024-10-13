@@ -51,7 +51,7 @@ export default function RegisterView() {
 
   return (
     <>
-      <p className="text-xl font-mono mt-14 justify-center">
+      <p className="text-xl font-mono mt-14 text-center">
         Llena el formulario para {""}
         <span className=" text-blue-500 font-bold"> crear tu cuenta</span>
       </p>
@@ -149,6 +149,16 @@ export default function RegisterView() {
             className="text-blue-500 font-bold underline"
           >
             Incia sesión
+          </Link>
+        </p>
+
+        <p>
+          ¿Olvidaste tu contraseña? {""}
+          <Link
+            to={"/auth/forgot-password"}
+            className="text-blue-500 font-bold underline"
+          >
+            Reestablecer aquí
           </Link>
         </p>
       </nav>
