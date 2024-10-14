@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { UserLoginForm } from "../../types";
 import ErrorMessage from "../../components/ErrorMessage";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../api/AuthAPI";
 import Swal from "sweetalert2";
@@ -16,6 +16,7 @@ export default function LoginView() {
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
+  const navigate = useNavigate();
 
   const { mutate } = useMutation({
     mutationFn: loginUser,
@@ -27,13 +28,8 @@ export default function LoginView() {
         confirmButtonText: "Continuar",
       });
     },
-    onSuccess: (data) => {
-      Swal.fire({
-        title: "Felicidades!",
-        text: data,
-        icon: "success",
-        confirmButtonText: "Continuar",
-      });
+    onSuccess: () => {
+      navigate("/");
     },
   });
 
