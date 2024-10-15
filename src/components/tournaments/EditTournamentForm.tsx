@@ -72,7 +72,7 @@ export default function EditTournamentForm({
         </h1>
         <div>
           <Link to="/tournaments">
-            <button className="font-mono font-semibold bg-zinc-700 text-white py-2 px-12 rounded-full">
+            <button className="font-mono font-semibold bg-blue-700 text-white py-2 px-12 rounded-full">
               Regresar a los torneos
             </button>
           </Link>
@@ -80,7 +80,7 @@ export default function EditTournamentForm({
       </header>
 
       <form
-        className="bg-zinc-700 mt-12 shadow-lg p-10 mx-10 rounded-lg"
+        className="bg-blue-700 mt-12 shadow-lg p-10 mx-10 rounded-lg"
         onSubmit={handleSubmit(handleForm)}
         noValidate
       >
@@ -109,7 +109,7 @@ export default function EditTournamentForm({
           <input
             type="submit"
             value="Editar Torneo"
-            className="text-black bg-zinc-400 font-bold py-3 px-8 rounded-full shadow-md hover:bg-white transition-all"
+            className="text-black bg-blue-400 font-bold py-3 px-8 rounded-full shadow-md hover:bg-white transition-all"
           />
         </div>
       </form>
