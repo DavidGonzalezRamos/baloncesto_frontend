@@ -1,4 +1,4 @@
-import { z} from 'zod'
+import { z } from 'zod'
 
 
 //Auth & Users
@@ -59,3 +59,15 @@ export const tournamentListSchema = z.array(
 )
 export type Tournament = z.infer<typeof tournamentSchema>
 export type TournamentFormData = Pick<Tournament, 'dateStart' | 'dateEnd' | 'tournamentName'>
+
+//Players
+export const playerSchema = z.object({
+  _id: z.string(),
+  name: z.string(),
+  lastName: z.string(),
+  number: z.number(),
+  curp: z.string(),
+  position: z.string(),
+})
+export type Player = z.infer<typeof playerSchema>
+export type PlayerFormData = Pick<Player, 'name' | 'lastName' | 'number' | 'curp' | 'position' >

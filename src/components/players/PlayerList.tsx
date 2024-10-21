@@ -7,25 +7,25 @@ import {
 } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
-import { Fragment } from "react";
-import { Team } from "../../types";
+import { Player } from "../../types";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTeam } from "../../api/TeamAPI";
+import { deletePlayer } from "../../api/PlayerAPI";
 import Swal from "sweetalert2";
+import { Fragment } from "react";
 
-type TeamListProps = {
-  teams: Team[];
+type PlayerListProps = {
+  players: Player[];
 };
 
-export default function TeamList({ teams }: TeamListProps) {
+export default function PlayerList({ players }: PlayerListProps) {
   const navigate = useNavigate();
   const params = useParams();
-  const tournamentId = params.tournamentId!;
+  const teamId = params.teamId!;
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
-    mutationFn: deleteTeam,
+    mutationFn: deletePlayer,
     onError: (error) => {
       Swal.fire({
         title: "Error",
@@ -41,8 +41,9 @@ export default function TeamList({ teams }: TeamListProps) {
         icon: "success",
         confirmButtonText: "Continuar",
       });
+      queryClient.invalidateQueries();
       queryClient.invalidateQueries({
-        queryKey: ["tournament", tournamentId],
+        queryKey: ["team", teamId],
       });
     },
   });
@@ -50,31 +51,29 @@ export default function TeamList({ teams }: TeamListProps) {
   return (
     <>
       <div className="p-6 bg-white rounded-xl shadow-md mb-7 mt-8 font-mono">
-        <p className="text-3xl"> Equipos</p>
+        <p className="text-3xl"> Jugadores</p>
       </div>
       <div className="p-6 bg-white rounded-xl shadow-md mb-7 mt-8 font-mono">
         <table className="min-w-full">
           <thead>
             <tr>
               <th className="text-left text-2xl">Nombre</th>
-              <th className="text-left text-2xl">Entrenador</th>
-              <th className="text-left text-2xl">Rama</th>
-              <th className="text-left text-2xl"></th>
+              <th className="text-left text-2xl">Posición</th>
+              <th className="text-left text-2xl">Número</th>
             </tr>
           </thead>
           <tbody>
-            {teams.map((team) => (
-              <tr key={team._id}>
+            {players.map((player) => (
+              <tr key={player._id}>
                 <td className="text-black cursor-pointer text-3xl font-bold">
-                  <Link
-                    to={`/teams/${tournamentId}/${team._id}/players`}
-                    className="hover:underline"
-                  >
-                    {team.nameTeam}
+                  <Link to={``} className="hover:underline">
+                    {player.name}
+                    {"  "}
+                    {player.lastName}
                   </Link>
                 </td>
-                <td className="text-2xl">{team.nameCoach}</td>
-                <td className="text-2xl">{team.branchTeam}</td>
+                <td className="text-2xl">{player.number}</td>
+                <td className="text-2xl">{player.position}</td>
                 <td className="text-2xl">
                   <div className="flex shrink-0  gap-x-6">
                     <Menu as="div" className="relative flex-none">
@@ -98,11 +97,11 @@ export default function TeamList({ teams }: TeamListProps) {
                         <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                           <MenuItem>
                             <Link
-                              to={`/teams/${tournamentId}/${team._id}/players`}
+                              to={``}
                               type="button"
                               className="block px-3 py-1 text-sm leading-6 text-gray-900"
                             >
-                              Ver Equipo
+                              Ver Jugador
                             </Link>
                           </MenuItem>
                           <MenuItem>
@@ -110,24 +109,25 @@ export default function TeamList({ teams }: TeamListProps) {
                               type="button"
                               onClick={() =>
                                 navigate(
-                                  location.pathname + `?editTeam=${team._id}`
+                                  location.pathname +
+                                    `?editPlayer=${player._id}`
                                 )
                               }
                               className="block px-3 py-1 text-sm leading-6 text-gray-900"
                             >
-                              Editar Equipo
+                              Editar Jugador
                             </button>
                           </MenuItem>
 
                           <MenuItem>
                             <button
                               onClick={() =>
-                                mutate({ tournamentId, teamId: team._id })
+                                mutate({ teamId, playerId: player._id })
                               }
                               type="button"
                               className="block px-3 py-1 text-sm leading-6 text-red-500"
                             >
-                              Eliminar Equipo
+                              Eliminar Jugador
                             </button>
                           </MenuItem>
                         </MenuItems>

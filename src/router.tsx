@@ -12,6 +12,7 @@ import ConfirmAccountView from "./views/auth/ConfirmAccountView";
 import RequestNewCodeView from "./views/auth/RequestNewCodeView";
 import ForgotPasswordView from "./views/auth/ForgotPasswordView";
 import NewPasswordView from "./views/auth/NewPasswordView";
+import TeamPlayersView from "./views/players/TeamPlayersView";
 
 export default function Router() {
   return (
@@ -23,6 +24,10 @@ export default function Router() {
           <Route
             path="/tournaments/:tournamentId"
             element={<TournamentTeamsView />}
+          />
+          <Route
+            path="/teams/:tournamentId/:teamId/players"
+            element={<TeamPlayersView />}
           />
         </Route>
         <Route path="/tournaments/create" element={<CreateTournamentView />} />

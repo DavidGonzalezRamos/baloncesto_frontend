@@ -7,41 +7,46 @@ import {
   DialogPanel,
 } from "@headlessui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Team, TeamFormData } from "../../types";
+import { Player, PlayerFormData } from "../../types";
 import { useForm } from "react-hook-form";
-import TeamForm from "./TeamForm";
+import PlayerForm from "./PlayerForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateTeam } from "../../api/TeamAPI";
+import { updatePlayer } from "../../api/PlayerAPI";
 import Swal from "sweetalert2";
 
-type EditTeamModalProps = {
-  data: Team;
-  teamId: Team["_id"];
+type EditPlayerModalProps = {
+  data: Player;
+  playerId: Player["_id"];
 };
 
-export default function EditTeamModal({ data, teamId }: EditTeamModalProps) {
+export default function EditPlayerModal({
+  data,
+  playerId,
+}: EditPlayerModalProps) {
   const navigate = useNavigate();
 
-  //Obtener tournamentId
+  //Obtener teamId
   const params = useParams();
-  const tournamentId = params.tournamentId!;
+  const teamId = params.teamId!;
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<TeamFormData>({
+  } = useForm<PlayerFormData>({
     defaultValues: {
-      nameTeam: data.nameTeam,
-      nameCoach: data.nameCoach,
-      branchTeam: data.branchTeam,
+      name: data.name,
+      lastName: data.lastName,
+      number: data.number,
+      curp: data.curp,
+      position: data.position,
     },
   });
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
-    mutationFn: updateTeam,
+    mutationFn: updatePlayer,
     onError: (error) => {
       Swal.fire({
         title: "Error",
@@ -53,7 +58,7 @@ export default function EditTeamModal({ data, teamId }: EditTeamModalProps) {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       queryClient.invalidateQueries({
-        queryKey: ["editTournament", tournamentId],
+        queryKey: ["editTeam", teamId],
       });
       Swal.fire({
         title: "Felicidades!",
@@ -66,10 +71,10 @@ export default function EditTeamModal({ data, teamId }: EditTeamModalProps) {
     },
   });
 
-  const handleEditTeam = (formData: TeamFormData) => {
+  const handleEditPlayer = (formData: PlayerFormData) => {
     const data = {
-      tournamentId,
       teamId,
+      playerId,
       formData,
     };
     mutate(data);
@@ -107,20 +112,20 @@ export default function EditTeamModal({ data, teamId }: EditTeamModalProps) {
             >
               <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
                 <DialogTitle as="h3" className="font-black text-4xl  my-5">
-                  Editar Equipo
+                  Editar Jugador
                 </DialogTitle>
 
                 <p className="text-xl font-bold">
-                  Realiza cambios a un equipo en {""}
+                  Realiza cambios a un jugador en {""}
                   <span className="text-zinc-600">este formulario</span>
                 </p>
 
                 <form
                   className="mt-10 space-y-3"
                   noValidate
-                  onSubmit={handleSubmit(handleEditTeam)}
+                  onSubmit={handleSubmit(handleEditPlayer)}
                 >
-                  <TeamForm register={register} errors={errors} />
+                  <PlayerForm register={register} errors={errors} />
                   <input
                     type="submit"
                     className=" bg-blue-600 hover:bg-blue-700 w-full p-3  text-white font-black  text-xl cursor-pointer"

@@ -76,7 +76,7 @@ export default function AppLayout() {
               </li>
               <li>
                 <NavLink
-                  to="/equipos"
+                  to="/teams"
                   className={({ isActive }) =>
                     isActive
                       ? "flex items-center p-3 font-sans font-medium text-lg bg-blue-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"
@@ -89,7 +89,7 @@ export default function AppLayout() {
               </li>
               <li>
                 <NavLink
-                  to="/jugador"
+                  to="/players"
                   className={({ isActive }) =>
                     isActive
                       ? "flex items-center p-3 font-sans font-medium text-lg bg-blue-400 text-black rounded-l-full -mr-12 transition duration-300 ease-in-out"

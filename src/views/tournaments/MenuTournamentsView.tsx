@@ -51,16 +51,6 @@ export default function MenuTournaments() {
             Torneos
           </h1>
         </div>
-        <div className="mt-8">
-          <div className="p-6 bg-blue-200 rounded-xl shadow-md mb-7">
-            <h2 className="font-mono text-3xl  text-black">
-              Torneos anteriores
-            </h2>
-            <p className="font-mono text-2xl py-8  text-black">
-              No hay torneos anteriores
-            </p>
-          </div>
-        </div>
 
         {data.length ? (
           <>
@@ -158,8 +148,7 @@ export default function MenuTournaments() {
               ))}
             </ul>
 
-            {/* Mostrar el botón solo si hay menos de 2 torneos */}
-            {data.length < 2 && (
+            {data.length < 50 && (
               <button className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-4 px-12 rounded-full mt-7">
                 <Link to="/tournaments/create">Crear Nuevo Torneo</Link>
               </button>
