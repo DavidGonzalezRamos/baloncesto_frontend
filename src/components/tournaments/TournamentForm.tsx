@@ -70,7 +70,7 @@ export default function TournamentForm({
             className="w-full p-3  border border-gray-200"
             placeholder="Nombre del Torneo"
             {...register("tournamentName", {
-              required: "El nombre del torneo es obligatoria",
+              required: "El nombre del torneo es obligatorio",
             })}
           />
 
