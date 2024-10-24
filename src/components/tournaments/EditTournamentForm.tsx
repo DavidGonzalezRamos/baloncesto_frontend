@@ -92,13 +92,19 @@ export default function EditTournamentForm({
           </p>
           <p className="font-mono py-8  text-black">
             Fecha de inicio:{" "}
-            {new Date(data.dateStart).toLocaleDateString("es-ES", {
+            {new Date(
+              new Date(data.dateStart).getTime() +
+                new Date().getTimezoneOffset() * 60000
+            ).toLocaleDateString("es-ES", {
               year: "numeric",
               month: "2-digit",
               day: "2-digit",
             })}{" "}
             - Fecha de fin:{" "}
-            {new Date(data.dateEnd).toLocaleDateString("es-ES", {
+            {new Date(
+              new Date(data.dateEnd).getTime() +
+                new Date().getTimezoneOffset() * 60000
+            ).toLocaleDateString("es-ES", {
               year: "numeric",
               month: "2-digit",
               day: "2-digit",

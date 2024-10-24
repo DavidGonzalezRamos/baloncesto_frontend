@@ -73,25 +73,25 @@ export default function MenuTournaments() {
                       </Link>
                       <p className="text-sm text-gray-600">
                         Fecha de inicio:{" "}
-                        {new Date(tournament.dateStart).toLocaleDateString(
-                          "es-ES",
-                          {
-                            year: "numeric",
-                            month: "2-digit",
-                            day: "2-digit",
-                          }
-                        )}
+                        {new Date(
+                          new Date(tournament.dateStart).getTime() +
+                            new Date().getTimezoneOffset() * 60000
+                        ).toLocaleDateString("es-ES", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                        })}
                       </p>
                       <p className="text-sm text-gray-600">
                         Fecha de término:{" "}
-                        {new Date(tournament.dateEnd).toLocaleDateString(
-                          "es-ES",
-                          {
-                            year: "numeric",
-                            month: "2-digit",
-                            day: "2-digit",
-                          }
-                        )}
+                        {new Date(
+                          new Date(tournament.dateEnd).getTime() +
+                            new Date().getTimezoneOffset() * 60000
+                        ).toLocaleDateString("es-ES", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                        })}
                       </p>
                     </div>
                   </div>
