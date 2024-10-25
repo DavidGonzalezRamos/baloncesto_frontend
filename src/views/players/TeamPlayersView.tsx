@@ -4,6 +4,7 @@ import { getTeamById } from "../../api/TeamAPI";
 import PlayerList from "../../components/players/PlayerList";
 import AddPlayerModal from "../../components/players/AddPlayerModal";
 import EditPlayerData from "../../components/players/EditPlayerData";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function TeamPlayersView() {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ export default function TeamPlayersView() {
   const params = useParams();
   const tournamentId = params.tournamentId!;
   const teamId = params.teamId!;
+
+  const { data: user } = useAuth(); // Obtener los datos del usuario
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["team", tournamentId, teamId],
@@ -32,13 +35,15 @@ export default function TeamPlayersView() {
             </p>
           </div>
           <nav className="my-0 gap-3 mt-5">
-            <button
-              type="button"
-              className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-2 px-4 rounded-lg"
-              onClick={() => navigate(location.pathname + "?newPlayer=true")}
-            >
-              Agregar jugador
-            </button>
+            {user?.role === "admin" && (
+              <button
+                type="button"
+                className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-2 px-4 rounded-lg"
+                onClick={() => navigate(location.pathname + "?newPlayer=true")}
+              >
+                Agregar jugador
+              </button>
+            )}
           </nav>
         </div>
         <div>

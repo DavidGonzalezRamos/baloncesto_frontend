@@ -4,6 +4,7 @@ import { getTournamentById } from "../../api/TournamentAPI";
 import AddTeamModal from "../../components/teams/AddTeamModal";
 import TeamList from "../../components/teams/TeamList";
 import EditTeamData from "../../components/teams/EditTeamData";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function TournamentTeamsView() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export default function TournamentTeamsView() {
   const params = useParams();
   const tournamentId = params.tournamentId!;
 
+  const { data: user } = useAuth(); // Obtener los datos del usuario
   const { data, isLoading, isError } = useQuery({
     queryKey: ["tournament", tournamentId],
     queryFn: () => getTournamentById(tournamentId),
@@ -43,13 +45,15 @@ export default function TournamentTeamsView() {
             </p>
           </div>
           <nav className="my-0 gap-3 mt-5">
-            <button
-              type="button"
-              className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-2 px-4 rounded-lg"
-              onClick={() => navigate(location.pathname + "?newTeam=true")}
-            >
-              Agregar equipo
-            </button>
+            {user?.role === "admin" && (
+              <button
+                type="button"
+                className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-2 px-4 rounded-lg"
+                onClick={() => navigate(location.pathname + "?newTeam=true")}
+              >
+                Agregar equipo
+              </button>
+            )}
           </nav>
         </div>
         <div>

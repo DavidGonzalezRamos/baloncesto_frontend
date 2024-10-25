@@ -13,6 +13,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deletePlayer } from "../../api/PlayerAPI";
 import Swal from "sweetalert2";
 import { Fragment } from "react";
+import { useAuth } from "../../hooks/useAuth";
 
 type PlayerListProps = {
   players: Player[];
@@ -22,6 +23,8 @@ export default function PlayerList({ players }: PlayerListProps) {
   const navigate = useNavigate();
   const params = useParams();
   const teamId = params.teamId!;
+
+  const { data: user } = useAuth(); // Obtener los datos del usuario
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
@@ -104,32 +107,36 @@ export default function PlayerList({ players }: PlayerListProps) {
                               Ver Jugador
                             </Link>
                           </MenuItem>
-                          <MenuItem>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                navigate(
-                                  location.pathname +
-                                    `?editPlayer=${player._id}`
-                                )
-                              }
-                              className="block px-3 py-1 text-sm leading-6 text-gray-900"
-                            >
-                              Editar Jugador
-                            </button>
-                          </MenuItem>
+                          {user?.role === "admin" && (
+                            <MenuItem>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navigate(
+                                    location.pathname +
+                                      `?editPlayer=${player._id}`
+                                  )
+                                }
+                                className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                              >
+                                Editar Jugador
+                              </button>
+                            </MenuItem>
+                          )}
 
-                          <MenuItem>
-                            <button
-                              onClick={() =>
-                                mutate({ teamId, playerId: player._id })
-                              }
-                              type="button"
-                              className="block px-3 py-1 text-sm leading-6 text-red-500"
-                            >
-                              Eliminar Jugador
-                            </button>
-                          </MenuItem>
+                          {user?.role === "admin" && (
+                            <MenuItem>
+                              <button
+                                onClick={() =>
+                                  mutate({ teamId, playerId: player._id })
+                                }
+                                type="button"
+                                className="block px-3 py-1 text-sm leading-6 text-red-500"
+                              >
+                                Eliminar Jugador
+                              </button>
+                            </MenuItem>
+                          )}
                         </MenuItems>
                       </Transition>
                     </Menu>

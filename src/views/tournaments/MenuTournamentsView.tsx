@@ -12,8 +12,10 @@ import { deleteTournament, getTournament } from "../../api/TournamentAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import { useAuth } from "../../hooks/useAuth"; // Importar el hook de autenticación
 
 export default function MenuTournaments() {
+  const { data: user, isLoading: authLoading } = useAuth();
   const { data, isLoading } = useQuery({
     queryKey: ["tournaments"],
     queryFn: getTournament,
@@ -41,12 +43,14 @@ export default function MenuTournaments() {
     },
   });
 
-  if (isLoading) return "Cargando...";
+  if (isLoading || authLoading) return "Cargando...";
+
+  const isAdmin = user?.role === "admin";
 
   if (data)
     return (
       <>
-        <div className="bg-blue-200  rounded-xl  top-8 p-4 mx-auto flex justify-between mt-7">
+        <div className="bg-blue-200 rounded-xl top-8 p-4 mx-auto flex justify-between mt-7">
           <h1 className="font-mono text-5xl text-black font-extrabold uppercase">
             Torneos
           </h1>
@@ -123,23 +127,27 @@ export default function MenuTournaments() {
                               Ver Torneo
                             </Link>
                           </MenuItem>
-                          <MenuItem>
-                            <Link
-                              to={`/tournaments/${tournament._id}/edit`}
-                              className="block px-3 py-1 text-sm leading-6 text-gray-900"
-                            >
-                              Editar Torneo
-                            </Link>
-                          </MenuItem>
-                          <MenuItem>
-                            <button
-                              type="button"
-                              className="block px-3 py-1 text-sm leading-6 text-red-500"
-                              onClick={() => mutate(tournament._id)}
-                            >
-                              Eliminar Torneo
-                            </button>
-                          </MenuItem>
+                          {user?.role === "admin" && (
+                            <MenuItem>
+                              <Link
+                                to={`/tournaments/${tournament._id}/edit`}
+                                className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                              >
+                                Editar Torneo
+                              </Link>
+                            </MenuItem>
+                          )}
+                          {user?.role === "admin" && (
+                            <MenuItem>
+                              <button
+                                type="button"
+                                className="block px-3 py-1 text-sm leading-6 text-red-500"
+                                onClick={() => mutate(tournament._id)}
+                              >
+                                Eliminar Torneo
+                              </button>
+                            </MenuItem>
+                          )}
                         </MenuItems>
                       </Transition>
                     </Menu>
@@ -148,7 +156,8 @@ export default function MenuTournaments() {
               ))}
             </ul>
 
-            {data.length < 50 && (
+            {/* Mostrar el botón solo si el usuario es admin */}
+            {isAdmin && data.length < 50 && (
               <button className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-4 px-12 rounded-full mt-7">
                 <Link to="/tournaments/create">Crear Nuevo Torneo</Link>
               </button>
@@ -159,10 +168,12 @@ export default function MenuTournaments() {
             <p className="font-mono text-2xl py-20 text-black">
               Actualmente no hay un torneo en curso
             </p>
-            {/* Si no hay torneos, siempre se muestra el botón */}
-            <button className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-black py-4 px-12 rounded-full">
-              <Link to="/tournaments/create">Crear Nuevo Torneo</Link>
-            </button>
+            {/* Mostrar el botón solo si el usuario es admin */}
+            {isAdmin && (
+              <button className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-black py-4 px-12 rounded-full">
+                <Link to="/tournaments/create">Crear Nuevo Torneo</Link>
+              </button>
+            )}
           </div>
         )}
       </>

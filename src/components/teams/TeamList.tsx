@@ -13,6 +13,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTeam } from "../../api/TeamAPI";
 import Swal from "sweetalert2";
+import { useAuth } from "../../hooks/useAuth";
 
 type TeamListProps = {
   teams: Team[];
@@ -22,6 +23,8 @@ export default function TeamList({ teams }: TeamListProps) {
   const navigate = useNavigate();
   const params = useParams();
   const tournamentId = params.tournamentId!;
+
+  const { data: user } = useAuth(); // Obtener los datos del usuario
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
@@ -105,31 +108,35 @@ export default function TeamList({ teams }: TeamListProps) {
                               Ver Equipo
                             </Link>
                           </MenuItem>
-                          <MenuItem>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                navigate(
-                                  location.pathname + `?editTeam=${team._id}`
-                                )
-                              }
-                              className="block px-3 py-1 text-sm leading-6 text-gray-900"
-                            >
-                              Editar Equipo
-                            </button>
-                          </MenuItem>
+                          {user?.role === "admin" && (
+                            <MenuItem>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  navigate(
+                                    location.pathname + `?editTeam=${team._id}`
+                                  )
+                                }
+                                className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                              >
+                                Editar Equipo
+                              </button>
+                            </MenuItem>
+                          )}
 
-                          <MenuItem>
-                            <button
-                              onClick={() =>
-                                mutate({ tournamentId, teamId: team._id })
-                              }
-                              type="button"
-                              className="block px-3 py-1 text-sm leading-6 text-red-500"
-                            >
-                              Eliminar Equipo
-                            </button>
-                          </MenuItem>
+                          {user?.role === "admin" && (
+                            <MenuItem>
+                              <button
+                                onClick={() =>
+                                  mutate({ tournamentId, teamId: team._id })
+                                }
+                                type="button"
+                                className="block px-3 py-1 text-sm leading-6 text-red-500"
+                              >
+                                Eliminar Equipo
+                              </button>
+                            </MenuItem>
+                          )}
                         </MenuItems>
                       </Transition>
                     </Menu>

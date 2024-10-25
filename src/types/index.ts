@@ -24,6 +24,7 @@ export const userSchema = authSchema.pick({
   email: true
 }).extend({
   _id: z.string(),
+  role: z.string(), // Agregar el campo 'role'
 })
 export type User = z.infer<typeof userSchema>
 
