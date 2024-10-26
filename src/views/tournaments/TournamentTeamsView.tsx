@@ -5,6 +5,7 @@ import AddTeamModal from "../../components/teams/AddTeamModal";
 import TeamList from "../../components/teams/TeamList";
 import EditTeamData from "../../components/teams/EditTeamData";
 import { useAuth } from "../../hooks/useAuth";
+import DeleteTeamModal from "../../components/teams/DeleteTeamModal";
 
 export default function TournamentTeamsView() {
   const navigate = useNavigate();
@@ -63,6 +64,7 @@ export default function TournamentTeamsView() {
         </div>
         <AddTeamModal />
         <EditTeamData />
+        <DeleteTeamModal />
       </>
     );
 }

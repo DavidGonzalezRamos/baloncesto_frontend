@@ -8,10 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { Player } from "../../types";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deletePlayer } from "../../api/PlayerAPI";
-import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -21,35 +18,8 @@ type PlayerListProps = {
 
 export default function PlayerList({ players }: PlayerListProps) {
   const navigate = useNavigate();
-  const params = useParams();
-  const teamId = params.teamId!;
 
   const { data: user } = useAuth(); // Obtener los datos del usuario
-
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: deletePlayer,
-    onError: (error) => {
-      Swal.fire({
-        title: "Error",
-        text: error.message,
-        icon: "error",
-        confirmButtonText: "Continuar",
-      });
-    },
-    onSuccess: (data) => {
-      Swal.fire({
-        title: "Felicidades!",
-        text: data,
-        icon: "success",
-        confirmButtonText: "Continuar",
-      });
-      queryClient.invalidateQueries();
-      queryClient.invalidateQueries({
-        queryKey: ["team", teamId],
-      });
-    },
-  });
 
   return (
     <>
@@ -128,7 +98,10 @@ export default function PlayerList({ players }: PlayerListProps) {
                             <MenuItem>
                               <button
                                 onClick={() =>
-                                  mutate({ teamId, playerId: player._id })
+                                  navigate(
+                                    location.pathname +
+                                      `?deletePlayer=${player._id}`
+                                  )
                                 }
                                 type="button"
                                 className="block px-3 py-1 text-sm leading-6 text-red-500"

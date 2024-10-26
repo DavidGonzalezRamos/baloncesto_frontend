@@ -6,43 +6,22 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
-import { deleteTournament, getTournament } from "../../api/TournamentAPI";
+import { useQuery } from "@tanstack/react-query";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { getTournament } from "../../api/TournamentAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
-import Swal from "sweetalert2";
 import { useAuth } from "../../hooks/useAuth"; // Importar el hook de autenticación
+import DeleteTournamentModal from "../../components/tournaments/DeleteTournamentModal";
 
 export default function MenuTournaments() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { data: user, isLoading: authLoading } = useAuth();
   const { data, isLoading } = useQuery({
     queryKey: ["tournaments"],
     queryFn: getTournament,
   });
-
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: deleteTournament,
-    onError: (error) => {
-      Swal.fire({
-        title: "Error",
-        text: error.message,
-        icon: "error",
-        confirmButtonText: "Continuar",
-      });
-    },
-    onSuccess: (data) => {
-      Swal.fire({
-        title: "Felicidades!",
-        text: data,
-        icon: "success",
-        confirmButtonText: "Continuar",
-      });
-      queryClient.invalidateQueries({ queryKey: ["tournaments"] });
-    },
-  });
-
   if (isLoading || authLoading) return "Cargando...";
 
   const isAdmin = user?.role === "admin";
@@ -142,7 +121,12 @@ export default function MenuTournaments() {
                               <button
                                 type="button"
                                 className="block px-3 py-1 text-sm leading-6 text-red-500"
-                                onClick={() => mutate(tournament._id)}
+                                onClick={() =>
+                                  navigate(
+                                    location.pathname +
+                                      `?deleteTournament=${tournament._id}`
+                                  )
+                                }
                               >
                                 Eliminar Torneo
                               </button>
@@ -176,6 +160,8 @@ export default function MenuTournaments() {
             )}
           </div>
         )}
+
+        <DeleteTournamentModal />
       </>
     );
 }

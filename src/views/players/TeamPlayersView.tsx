@@ -5,6 +5,7 @@ import PlayerList from "../../components/players/PlayerList";
 import AddPlayerModal from "../../components/players/AddPlayerModal";
 import EditPlayerData from "../../components/players/EditPlayerData";
 import { useAuth } from "../../hooks/useAuth";
+import DeletePlayerModal from "../../components/players/DeletePlayerModal";
 
 export default function TeamPlayersView() {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ export default function TeamPlayersView() {
         </div>
         <AddPlayerModal />
         <EditPlayerData />
+        <DeletePlayerModal />
       </>
     );
 }

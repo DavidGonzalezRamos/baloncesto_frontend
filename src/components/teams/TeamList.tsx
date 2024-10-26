@@ -10,9 +10,6 @@ import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { Fragment } from "react";
 import { Team } from "../../types";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTeam } from "../../api/TeamAPI";
-import Swal from "sweetalert2";
 import { useAuth } from "../../hooks/useAuth";
 
 type TeamListProps = {
@@ -25,30 +22,6 @@ export default function TeamList({ teams }: TeamListProps) {
   const tournamentId = params.tournamentId!;
 
   const { data: user } = useAuth(); // Obtener los datos del usuario
-
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: deleteTeam,
-    onError: (error) => {
-      Swal.fire({
-        title: "Error",
-        text: error.message,
-        icon: "error",
-        confirmButtonText: "Continuar",
-      });
-    },
-    onSuccess: (data) => {
-      Swal.fire({
-        title: "Felicidades!",
-        text: data,
-        icon: "success",
-        confirmButtonText: "Continuar",
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["tournament", tournamentId],
-      });
-    },
-  });
 
   return (
     <>
@@ -128,7 +101,10 @@ export default function TeamList({ teams }: TeamListProps) {
                             <MenuItem>
                               <button
                                 onClick={() =>
-                                  mutate({ tournamentId, teamId: team._id })
+                                  navigate(
+                                    location.pathname +
+                                      `?deleteTeam=${team._id}`
+                                  )
                                 }
                                 type="button"
                                 className="block px-3 py-1 text-sm leading-6 text-red-500"
