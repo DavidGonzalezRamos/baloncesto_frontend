@@ -6,7 +6,7 @@ import {
   faUsers,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { Navigate, NavLink, Outlet } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useQueryClient } from "@tanstack/react-query";
 export default function AppLayout() {
@@ -29,9 +29,9 @@ export default function AppLayout() {
           <aside className="bg-blue-700 w-1/5 p-6 flex flex-col justify-between text-white rounded-xl m-4 shadow-lg">
             {/* Perfil */}
             <div className="mb-6">
-              <p className="font-sans text-lg font-semibold">
+              <Link to="/profile" className="font-sans text-lg font-semibold">
                 Bienvenido: {data.name}
-              </p>
+              </Link>
             </div>
             {/* Menú de navegación */}
             <ul className="space-y-6 mt-10 text-left">
