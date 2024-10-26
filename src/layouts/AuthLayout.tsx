@@ -15,33 +15,46 @@ export default function AuthLayout() {
       </div>
 
       {/* Columna derecha: Imagen e información */}
-      <div className="bg-gradient-to-b from-blue-300 to-blue-600 flex-1 flex justify-center  p-5">
-        <div className="text-center text-black">
+      <div className="bg-blue-800 flex-1 flex p-5 flex-col items-center ">
+        {/* Contenedor de imágenes superiores */}
+        <div className="w-full flex justify-between items-center ">
           <img
-            src="../../public/marcoIPN.jpg"
-            alt="Equipo de baloncesto IPN"
-            className="w-full max-h-40 opacity-20 mb-5 mt-0"
+            src="../../public/logotipo_ipn.webp"
+            alt="Logotipo IPN"
+            className="w-1/2 max-h-40 object-contain rounded-lg mr-72 "
           />
           <img
-            src="../../public/fotoBasket.JPG"
-            alt="Equipo de baloncesto IPN"
-            className="opacity-60 rounded-lg mb-5 max-h-96"
+            src="../../public/logoESCOM.png"
+            alt="Logotipo ESCOM"
+            className="w-1/2 max-h-40 object-contain rounded-lg ml-80 "
           />
-          <div className="font-mono">
-            <h2 className="font-mono font-bold text-2xl">
-              Tu pasión en la cancha y tu entrega en cada partido
-            </h2>
-            <h3 className="font-mono font-bold text-2xl">Visualízalo aquí!!</h3>
-            <p className="font-mono">
-              Con esta aplicación, podrás seguir de cerca cada detalle de tus
-              partidos, desde estadísticas hasta el rendimiento de equipo.
-              <br />
-              Todo en un solo lugar, para que puedas: analizar, mejorar y llevar
-              tu juego al siguiente nivel.
-            </p>
-          </div>
-          <p className="italic mt-8">Hecho por: Ángel David González Ramos</p>
         </div>
+
+        <img
+          src="../../public/fotoBasket.JPG"
+          alt="Equipo de baloncesto IPN"
+          className="rounded-lg max-h-96 object-cover shadow-md border-4 border-white"
+        />
+
+        <div className="font-mono text-white space-y-3 mt-9">
+          <h2 className="font-extrabold text-3xl  text-center">
+            Tu pasión en la cancha y tu entrega en cada partido
+          </h2>
+          <h3 className="font-mono font-semibold text-2xl  text-center">
+            Visualízalo aquí!!
+          </h3>
+          <p className="text-lg leading-relaxed   text-center">
+            Con esta aplicación, podrás seguir de cerca cada detalle de tus
+            partidos, desde estadísticas hasta el rendimiento de equipo.
+            <br />
+            Todo en un solo lugar, para que puedas: analizar, mejorar y llevar
+            tu juego al siguiente nivel.
+          </p>
+        </div>
+
+        <p className="italic text-white text-right w-full max-w-lg mt-20 text-sm ml-80">
+          Hecho por: Ángel David González Ramos
+        </p>
       </div>
     </div>
   );
