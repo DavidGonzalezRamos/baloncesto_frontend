@@ -7,6 +7,7 @@ export const useAuth = () => {
     queryFn: getUser,
     retry: 1,
     refetchOnWindowFocus: false,
+    refetchInterval: 1000, // Intenta refetch cada 1 segundo (quitar en producción)
   });
   return {data, isLoading, isError};
 }

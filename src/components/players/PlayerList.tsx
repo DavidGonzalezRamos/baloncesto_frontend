@@ -45,8 +45,8 @@ export default function PlayerList({ players }: PlayerListProps) {
                     {player.lastName}
                   </Link>
                 </td>
-                <td className="text-2xl">{player.number}</td>
                 <td className="text-2xl">{player.position}</td>
+                <td className="text-2xl">{player.number}</td>
                 <td className="text-2xl">
                   <div className="flex shrink-0  gap-x-6">
                     <Menu as="div" className="relative flex-none">

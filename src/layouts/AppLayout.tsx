@@ -19,6 +19,7 @@ export default function AppLayout() {
   const logout = () => {
     localStorage.removeItem("AUTH_TOKEN");
     queryClient.invalidateQueries({ queryKey: ["user"] });
+    queryClient.refetchQueries({ queryKey: ["user"] }); // Refuerza un refetch inmediato de la consulta "user"
   };
 
   if (data)

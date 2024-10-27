@@ -89,16 +89,32 @@ export async function updatePasswordWithToken({formData, token}: {formData: NewP
 }
 
 export async function getUser() {
+  // Verificar si el token está en localStorage
+  const token = localStorage.getItem("AUTH_TOKEN");
+  if (!token) {
+    throw new Error("No autorizado"); // Lanza un error si no hay token
+  }
+
   try {
-    const {data}= await api.get('/auth/user');
+    // Realizar la solicitud solo si hay un token
+    const { data } = await api.get('/auth/user', {
+      headers: {
+        Authorization: `Bearer ${token}` // Asegurarse de que se envía el token en la cabecera
+      }
+    });
+
+    // Validar la respuesta con `safeParse`
     const response = userSchema.safeParse(data);
-    if(response.success){
+    if (response.success) {
       return response.data;
+    } else {
+      throw new Error("Error en los datos del usuario"); // Error si la validación falla
     }
   } catch (error) {
-   if(isAxiosError(error) && error.response) {
-     throw new Error(error.response.data.error);
-   }
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
+    throw new Error("Error al obtener el usuario");
   }
 }
 
