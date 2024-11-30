@@ -140,7 +140,7 @@ export default function DeleteTeamModal() {
 
                   <input
                     type="submit"
-                    className=" bg-blue-600 hover:bg-blue-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
+                    className="text-black bg-blue-400 font-bold py-3 px-8 rounded-full shadow-md hover:bg-blue-600 transition-all w-full"
                     value="Eliminar Equipo"
                   />
                 </form>

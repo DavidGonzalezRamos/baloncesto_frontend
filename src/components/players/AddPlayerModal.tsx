@@ -124,7 +124,7 @@ export default function AddPlayerModal() {
                     <PlayerForm register={register} errors={errors} />
                     <input
                       type="submit"
-                      value="Guardar Equipo"
+                      value="Guardar Jugador"
                       className="text-black bg-blue-400 font-bold py-3 px-8 rounded-full shadow-md hover:bg-blue-600 transition-all w-full"
                     />
                   </form>
