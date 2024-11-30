@@ -29,7 +29,7 @@ export default function MenuTournaments() {
   if (data)
     return (
       <>
-        <div className="bg-blue-200 rounded-xl top-8 p-4 mx-auto flex justify-between mt-7">
+        <div className="bg-white rounded-xl top-8 p-4 mx-auto flex justify-between mt-7">
           <h1 className="font-mono text-5xl text-black font-extrabold uppercase">
             Torneos
           </h1>
@@ -141,14 +141,14 @@ export default function MenuTournaments() {
             </ul>
 
             {/* Mostrar el botón solo si el usuario es admin */}
-            {isAdmin && data.length < 50 && (
+            {isAdmin && data.length < 4 && (
               <button className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-4 px-12 rounded-full mt-7">
                 <Link to="/tournaments/create">Crear Nuevo Torneo</Link>
               </button>
             )}
           </>
         ) : (
-          <div className="p-6 bg-blue-200 rounded-lg shadow-md mb-6 text-center ">
+          <div className="p-6 bg-white rounded-lg shadow-md mb-6 text-center mt-4 ">
             <p className="font-mono text-2xl py-20 text-black">
               Actualmente no hay un torneo en curso
             </p>

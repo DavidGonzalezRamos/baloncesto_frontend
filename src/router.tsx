@@ -16,6 +16,9 @@ import TeamPlayersView from "./views/players/TeamPlayersView";
 import ProfileView from "./views/profile/ProfileView";
 import ChangePasswordView from "./views/profile/ChangePasswordView";
 import ProfileLayout from "./layouts/ProfileLayout";
+import MatchView from "./views/matches/MatchView";
+import TeamsView from "./views/teams/TeamsView";
+import PlayersView from "./views/players/PlayersView";
 
 export default function Router() {
   return (
@@ -37,6 +40,9 @@ export default function Router() {
             <Route path="/profile" element={<ProfileView />} />
             <Route path="/profile/password" element={<ChangePasswordView />} />
           </Route>
+          <Route path="/matches" element={<MatchView />} />
+          <Route path="/teams" element={<TeamsView />} />
+          <Route path="/players" element={<PlayersView />} />
         </Route>
         <Route path="/tournaments/create" element={<CreateTournamentView />} />
         <Route
