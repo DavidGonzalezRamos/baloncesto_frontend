@@ -44,12 +44,12 @@ export default function PlayerForm({ errors, register }: PlayerFormProps) {
 
       <div className="flex flex-col gap-5">
         <label className="font-normal text-2xl" htmlFor="curp">
-          Curp del jugador
+          CURP del jugador
         </label>
         <input
           id="curp"
           type="text"
-          placeholder="Curp del jugador"
+          placeholder="CURP del jugador"
           className="w-full p-3  border-gray-300 border"
           {...register("curp", {
             required: "El CURP del jugador es obligatorio",
@@ -80,7 +80,7 @@ export default function PlayerForm({ errors, register }: PlayerFormProps) {
 
       <div className="flex flex-col gap-5">
         <label className="font-normal text-2xl" htmlFor="position">
-          Posicion del jugador
+          Posición del jugador
         </label>
         <select
           id="branchTeam"
@@ -89,7 +89,7 @@ export default function PlayerForm({ errors, register }: PlayerFormProps) {
             required: "La rama del equipo es obligatoria",
           })}
         >
-          <option value="">Selecciona la posicion del jugador</option>
+          <option value="">Selecciona la posición del jugador</option>
           <option value="Base">Base</option>
           <option value="Escolta">Escolta</option>
           <option value="Alero">Alero</option>
