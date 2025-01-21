@@ -29,9 +29,14 @@ export default function AddPlayerModal() {
   const initialValues: PlayerFormData = {
     name: "",
     lastName: "",
+    numberIpn: 0,
     number: 0,
     curp: "",
     position: "",
+    idCard: "",
+    schedulePlayer: "",
+    photoPlayer: "",
+    examMed: "",
   };
   const {
     register,
@@ -45,6 +50,7 @@ export default function AddPlayerModal() {
   const { mutate } = useMutation({
     mutationFn: createPlayer,
     onError: (error) => {
+      console.error("Error al crear jugador:", error); // Log del error
       Swal.fire({
         title: "Error",
         text: error.message,
@@ -68,11 +74,52 @@ export default function AddPlayerModal() {
   });
 
   const handleCreatePlayer = (formData: PlayerFormData) => {
-    const data = {
-      formData,
-      teamId,
-    };
-    mutate(data);
+    const {
+      name,
+      lastName,
+      curp,
+      numberIpn,
+      number,
+      position,
+      idCard,
+      photoPlayer,
+      schedulePlayer,
+      examMed,
+    } = formData as any;
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", name);
+    formDataToSend.append("lastName", lastName);
+    formDataToSend.append("curp", curp);
+    formDataToSend.append("numberIpn", numberIpn);
+    formDataToSend.append("number", number);
+    formDataToSend.append("position", position);
+
+    // Adjuntar archivos si están presentes
+    if (idCard && idCard[0] instanceof File) {
+      formDataToSend.append("idCard", idCard[0]);
+    }
+
+    if (schedulePlayer && schedulePlayer[0] instanceof File) {
+      formDataToSend.append("schedulePlayer", schedulePlayer[0]);
+    }
+
+    if (photoPlayer && photoPlayer[0] instanceof File) {
+      formDataToSend.append("photoPlayer", photoPlayer[0]);
+    }
+
+    if (examMed && examMed[0] instanceof File) {
+      formDataToSend.append("examMed", examMed[0]);
+    }
+
+    // Adjuntar otros campos restantes
+    Object.entries(reset).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        formDataToSend.append(key, value.toString());
+      }
+    });
+
+    mutate({ formData: formDataToSend, teamId });
   };
 
   return (

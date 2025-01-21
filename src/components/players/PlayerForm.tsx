@@ -12,7 +12,7 @@ export default function PlayerForm({ errors, register }: PlayerFormProps) {
     <>
       <div className="flex flex-col gap-5">
         <label className="font-normal text-2xl" htmlFor="namePlayer">
-          Nombre del jugador
+          Nombre
         </label>
         <input
           id="name"
@@ -28,7 +28,7 @@ export default function PlayerForm({ errors, register }: PlayerFormProps) {
 
       <div className="flex flex-col gap-5">
         <label className="font-normal text-2xl" htmlFor="lastName">
-          Apellidos del jugador
+          Apellidos
         </label>
         <input
           id="lastName"
@@ -39,12 +39,14 @@ export default function PlayerForm({ errors, register }: PlayerFormProps) {
             required: "Los apellidos del jugador son obligatorios",
           })}
         />
-        {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
+        {errors.lastName && (
+          <ErrorMessage>{errors.lastName.message}</ErrorMessage>
+        )}
       </div>
 
       <div className="flex flex-col gap-5">
         <label className="font-normal text-2xl" htmlFor="curp">
-          CURP del jugador
+          CURP
         </label>
         <input
           id="curp"
@@ -55,7 +57,7 @@ export default function PlayerForm({ errors, register }: PlayerFormProps) {
             required: "El CURP del jugador es obligatorio",
             minLength: {
               value: 18,
-              message: "El CURP es de 18 caracteres",
+              message: "El CURP debe tener 18 caracteres",
             },
           })}
         />
@@ -63,12 +65,34 @@ export default function PlayerForm({ errors, register }: PlayerFormProps) {
       </div>
 
       <div className="flex flex-col gap-5">
+        <label className="font-normal text-2xl" htmlFor="numberIpn">
+          Boleta
+        </label>
+        <input
+          id="numberIpn"
+          type="number"
+          placeholder="Boleta del jugador"
+          className="w-full p-3  border-gray-300 border"
+          {...register("numberIpn", {
+            required: "La boleta del jugador es obligatorio",
+            minLength: {
+              value: 10,
+              message: "La boleta debe tener 10 caracteres",
+            },
+          })}
+        />
+        {errors.numberIpn && (
+          <ErrorMessage>{errors.numberIpn.message}</ErrorMessage>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-5">
         <label className="font-normal text-2xl" htmlFor="number">
-          Número del jugador
+          Número
         </label>
         <input
           id="numberPlayer"
-          type="text"
+          type="number"
           placeholder="Número del jugador"
           className="w-full p-3  border-gray-300 border"
           {...register("number", {
@@ -80,13 +104,13 @@ export default function PlayerForm({ errors, register }: PlayerFormProps) {
 
       <div className="flex flex-col gap-5">
         <label className="font-normal text-2xl" htmlFor="position">
-          Posición del jugador
+          Posición
         </label>
         <select
-          id="branchTeam"
+          id="position"
           className="w-full p-3 border-gray-300 border"
           {...register("position", {
-            required: "La rama del equipo es obligatoria",
+            required: "La posición del jugador es obligatoria",
           })}
         >
           <option value="">Selecciona la posición del jugador</option>
@@ -98,6 +122,74 @@ export default function PlayerForm({ errors, register }: PlayerFormProps) {
         </select>
         {errors.position && (
           <ErrorMessage>{errors.position.message}</ErrorMessage>
+        )}
+      </div>
+
+      {/* Archivos */}
+      <div className="flex flex-col gap-5">
+        <label className="font-normal text-2xl" htmlFor="idCard">
+          Credencial del IPN (PDF)
+        </label>
+        <input
+          id="idCard"
+          type="file"
+          className="w-full p-3 border-gray-300 border"
+          {...register("idCard", {
+            required: "El documento de identificación es obligatorio",
+          })}
+        />
+        {errors.idCard && <ErrorMessage>{errors.idCard.message}</ErrorMessage>}
+      </div>
+
+      <div className="flex flex-col gap-5">
+        <label className="font-normal text-2xl" htmlFor="schedulePlayer">
+          Horario del jugador (PDF)
+        </label>
+        <input
+          id="schedulePlayer"
+          type="file"
+          className="w-full p-3 border-gray-300 border"
+          {...register("schedulePlayer", {
+            required: "El horario del jugador es obligatorio",
+          })}
+        />
+        {errors.schedulePlayer && (
+          <ErrorMessage>{errors.schedulePlayer.message}</ErrorMessage>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-5">
+        <label className="font-normal text-2xl" htmlFor="photoPlayer">
+          Foto del jugador (Imagen)
+        </label>
+        <input
+          id="photoPlayer"
+          type="file"
+          accept="image/*"
+          className="w-full p-3 border-gray-300 border"
+          {...register("photoPlayer", {
+            required: "La foto del jugador es obligatoria",
+          })}
+        />
+        {errors.photoPlayer && (
+          <ErrorMessage>{errors.photoPlayer.message}</ErrorMessage>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-5">
+        <label className="font-normal text-2xl" htmlFor="examMed">
+          Examen médico (PDF)
+        </label>
+        <input
+          id="examMed"
+          type="file"
+          className="w-full p-3 border-gray-300 border"
+          {...register("examMed", {
+            required: "El examen médico es obligatorio",
+          })}
+        />
+        {errors.examMed && (
+          <ErrorMessage>{errors.examMed.message}</ErrorMessage>
         )}
       </div>
     </>

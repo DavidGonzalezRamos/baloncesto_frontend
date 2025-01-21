@@ -24,8 +24,6 @@ export default function EditPlayerModal({
   playerId,
 }: EditPlayerModalProps) {
   const navigate = useNavigate();
-
-  //Obtener teamId
   const params = useParams();
   const teamId = params.teamId!;
 
@@ -38,9 +36,14 @@ export default function EditPlayerModal({
     defaultValues: {
       name: data.name,
       lastName: data.lastName,
+      numberIpn: data.numberIpn,
       number: data.number,
       curp: data.curp,
       position: data.position,
+      idCard: data.idCard,
+      photoPlayer: data.photoPlayer,
+      schedulePlayer: data.schedulePlayer,
+      examMed: data.examMed,
     },
   });
 
@@ -72,11 +75,52 @@ export default function EditPlayerModal({
   });
 
   const handleEditPlayer = (formData: PlayerFormData) => {
+    const formDataToSend = new FormData();
+
+    // Añadir los campos normales
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("lastName", formData.lastName);
+    formDataToSend.append("numberIpn", formData.numberIpn.toString());
+    formDataToSend.append("number", formData.number.toString());
+    formDataToSend.append("curp", formData.curp);
+    formDataToSend.append("position", formData.position);
+
+    // Añadir archivos si existen
+    if (
+      formData.idCard &&
+      formData.idCard instanceof FileList &&
+      formData.idCard.length > 0
+    ) {
+      formDataToSend.append("idCard", formData.idCard[0]); // Acceder al primer archivo del FileList
+    }
+    if (
+      formData.photoPlayer &&
+      formData.photoPlayer instanceof FileList &&
+      formData.photoPlayer.length > 0
+    ) {
+      formDataToSend.append("photoPlayer", formData.photoPlayer[0]); // Acceder al primer archivo del FileList
+    }
+    if (
+      formData.schedulePlayer &&
+      formData.schedulePlayer instanceof FileList &&
+      formData.schedulePlayer.length > 0
+    ) {
+      formDataToSend.append("schedulePlayer", formData.schedulePlayer[0]); // Acceder al primer archivo del FileList
+    }
+    if (
+      formData.examMed &&
+      formData.examMed instanceof FileList &&
+      formData.examMed.length > 0
+    ) {
+      formDataToSend.append("examMed", formData.examMed[0]); // Acceder al primer archivo del FileList
+    }
+
     const data = {
       teamId,
       playerId,
-      formData,
+      formData: formDataToSend,
     };
+
     mutate(data);
   };
 
@@ -126,6 +170,7 @@ export default function EditPlayerModal({
                   onSubmit={handleSubmit(handleEditPlayer)}
                 >
                   <PlayerForm register={register} errors={errors} />
+
                   <input
                     type="submit"
                     className="text-black bg-blue-400 font-bold py-3 px-8 rounded-full shadow-md hover:bg-blue-600 transition-all w-full"

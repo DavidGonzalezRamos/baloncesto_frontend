@@ -39,7 +39,7 @@ export default function MenuTournaments() {
           <>
             <ul
               role="list"
-              className="divide-y divide-blue-100 border border-blue-100 mt-10 bg-blue-200 shadow-lg rounded-xl"
+              className="divide-y divide-blue-100 border border-blue-100 mt-10 bg-white shadow-lg rounded-xl"
             >
               {data.map((tournament) => (
                 <li

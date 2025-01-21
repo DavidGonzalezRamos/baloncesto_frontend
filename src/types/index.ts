@@ -70,9 +70,14 @@ export const playerSchema = z.object({
   _id: z.string(),
   name: z.string(),
   lastName: z.string(),
+  numberIpn: z.number(),
   number: z.number(),
   curp: z.string(),
   position: z.string(),
+  idCard: z.union([z.string(), z.instanceof(File), z.null()]), // Acepta string, File o null
+  schedulePlayer: z.union([z.string(), z.instanceof(File), z.null()]), // Acepta string, File o null
+  photoPlayer: z.union([z.string(), z.instanceof(File), z.null()]), // Acepta string, File o null
+  examMed: z.union([z.string(), z.instanceof(File), z.null()]), // Acepta string, File o null
 })
 export type Player = z.infer<typeof playerSchema>
-export type PlayerFormData = Pick<Player, 'name' | 'lastName' | 'number' | 'curp' | 'position' >
+export type PlayerFormData = Pick<Player, 'name' | 'lastName' | 'numberIpn' |'number' | 'curp' | 'position' |'idCard' | 'schedulePlayer' | 'photoPlayer' | 'examMed' >
