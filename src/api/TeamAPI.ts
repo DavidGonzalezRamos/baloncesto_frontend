@@ -1,6 +1,7 @@
 import { isAxiosError } from "axios";
 import api from "../lib/axios";
 import { Team, TeamFormData, Tournament } from "../types";
+import { PlayerAPI } from "./PlayerAPI";
 
 
 type TeamAPI = {
@@ -49,6 +50,20 @@ export async function deleteTeam({tournamentId, teamId}: Pick<TeamAPI, 'tourname
   try {
     const url = `/tournaments/${tournamentId}/teams/${teamId}`
     const { data } = await api.delete<string>(url)
+    return data
+  } catch (error) {
+    if(isAxiosError(error) && error.response){
+      throw new Error(error.response.data.error)
+    }
+  }
+}
+
+export async function generateTeamPDF({teamId}: Pick<PlayerAPI, 'teamId'>) {
+  try {
+    const url = `/players/${teamId}/pdf`
+    const { data } = await api(url, {
+      responseType: "blob",
+    })
     return data
   } catch (error) {
     if(isAxiosError(error) && error.response){

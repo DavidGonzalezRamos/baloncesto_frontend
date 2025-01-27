@@ -6,6 +6,7 @@ import AddPlayerModal from "../../components/players/AddPlayerModal";
 import EditPlayerData from "../../components/players/EditPlayerData";
 import { useAuth } from "../../hooks/useAuth";
 import DeletePlayerModal from "../../components/players/DeletePlayerModal";
+import CreateInfoTeams from "../../components/teams/CreateInfoTeams";
 
 export default function TeamPlayersView() {
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ export default function TeamPlayersView() {
             <PlayerList players={data.players} />
           ) : null}
         </div>
+        <CreateInfoTeams />
         <AddPlayerModal />
         <EditPlayerData />
         <DeletePlayerModal />

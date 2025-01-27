@@ -17,23 +17,24 @@ export default function EditTournamentForm({
 }: EditTournamentFormProps) {
   const navigate = useNavigate();
 
+  const queryClient = useQueryClient();
+
+  // Configuración inicial del formulario con `defaultValues`
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<TournamentFormData>({
     defaultValues: {
-      dateStart: data.dateStart,
-      dateEnd: data.dateEnd,
+      dateStart: new Date(data.dateStart).toISOString().split("T")[0], // Formato YYYY-MM-DD
+      dateEnd: new Date(data.dateEnd).toISOString().split("T")[0],
       tournamentName: data.tournamentName,
     },
   });
 
-  const queryClient = useQueryClient();
-
   const { mutate } = useMutation({
     mutationFn: updateTournament,
-    onError: (error) => {
+    onError: (error: any) => {
       Swal.fire({
         title: "Error",
         text: error.message,
@@ -41,14 +42,14 @@ export default function EditTournamentForm({
         confirmButtonText: "Continuar",
       });
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tournaments"] });
       queryClient.invalidateQueries({
         queryKey: ["editTournament", tournamentId],
       });
       Swal.fire({
-        title: "Felicidades!",
-        text: data,
+        title: "¡Felicidades!",
+        text: "El torneo se actualizó correctamente.",
         icon: "success",
         confirmButtonText: "Continuar",
       });
@@ -84,33 +85,9 @@ export default function EditTournamentForm({
         onSubmit={handleSubmit(handleForm)}
         noValidate
       >
+        {/* Pasamos register y valores iniciales */}
         <TournamentForm register={register} errors={errors} />
-        <div className="p-6 bg-white rounded-xl shadow-md mb-7">
-          <p className="font-mono py-8  text-black">
-            Estas son las fechas registradas si no deseas hacerle algún cambio
-            ingresalas nuevamente:
-          </p>
-          <p className="font-mono py-8  text-black">
-            Fecha de inicio:{" "}
-            {new Date(
-              new Date(data.dateStart).getTime() +
-                new Date().getTimezoneOffset() * 60000
-            ).toLocaleDateString("es-ES", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            })}{" "}
-            - Fecha de fin:{" "}
-            {new Date(
-              new Date(data.dateEnd).getTime() +
-                new Date().getTimezoneOffset() * 60000
-            ).toLocaleDateString("es-ES", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            })}
-          </p>
-        </div>
+
         <div className="flex justify-center">
           <input
             type="submit"
