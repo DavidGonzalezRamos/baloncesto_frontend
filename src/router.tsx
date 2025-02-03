@@ -19,6 +19,7 @@ import ProfileLayout from "./layouts/ProfileLayout";
 import MatchView from "./views/matches/MatchView";
 import TeamsView from "./views/teams/TeamsView";
 import PlayersView from "./views/players/PlayersView";
+import NotFound from "./views/404/NotFound";
 
 export default function Router() {
   return (
@@ -62,6 +63,10 @@ export default function Router() {
             element={<ForgotPasswordView />}
           />
           <Route path="/auth/new-password" element={<NewPasswordView />} />
+        </Route>
+
+        <Route element={<AppLayout />}>
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
