@@ -81,3 +81,19 @@ export const playerSchema = z.object({
 })
 export type Player = z.infer<typeof playerSchema>
 export type PlayerFormData = Pick<Player, 'name' | 'lastName' | 'numberIpn' |'number' | 'curp' | 'position' |'idCard' | 'schedulePlayer' | 'photoPlayer' | 'examMed' >
+
+//Matches
+export const matchSchema = z.object({
+  _id: z.string(),
+  teamLocal: z.string(),
+  teamVisitor: z.string(),
+  scoreLocal: z.number(),
+  scoreVisitor: z.number(),
+  teamWinner: z.string(),
+  date: z.union([z.date(), z.string()]),
+  place: z.string(),
+  tournament: z.string(),
+})
+export type Match = z.infer<typeof matchSchema>
+export type MatchFormData = Pick<Match, 'teamLocal' | 'teamVisitor' | 'scoreLocal' | 'scoreVisitor' | 'teamWinner' | 'date' | 'place' >
+

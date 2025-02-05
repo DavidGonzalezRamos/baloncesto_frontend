@@ -4,7 +4,7 @@ import { Player, Team } from "../types";
 
 
 export type PlayerAPI = {
-  formData: FormData; // Cambia PlayerFormData a FormData
+  formData: FormData; 
   teamId: Team["_id"]
   playerId: Player["_id"]
 }

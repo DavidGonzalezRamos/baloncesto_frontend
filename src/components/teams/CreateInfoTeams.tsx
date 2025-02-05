@@ -52,7 +52,7 @@ export default function CreateInfoTeams() {
       {user?.role === "admin" && (
         <button
           type="button"
-          className="font-mono text-2xl font-semibold bg-gradient-to-b from-teal-300 to-teal-600 text-white py-2 px-4 rounded-lg ml-2"
+          className="mt-5 font-mono text-2xl font-semibold bg-gradient-to-b from-teal-300 to-teal-600 text-white py-2 px-4 rounded-lg ml-2"
           onClick={handleGeneratePDF}
         >
           Generar cédula de jugadores

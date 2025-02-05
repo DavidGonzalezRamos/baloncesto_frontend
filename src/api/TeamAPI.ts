@@ -22,6 +22,18 @@ export async function createTeam({formData, tournamentId}: Pick<TeamAPI, 'formDa
   }
 }  
 
+export async function getTeams({tournamentId}: Pick<TeamAPI, 'tournamentId'>) {
+  try {
+    const url = `/tournaments/${tournamentId}/teams`
+    const { data } = await api(url)
+    return data
+  } catch (error) {
+    if(isAxiosError(error) && error.response){
+      throw new Error(error.response.data.error)
+    }
+  }
+}
+
 export async function getTeamById({tournamentId, teamId}: Pick<TeamAPI, 'tournamentId'| 'teamId' >) {
   try {
     const url = `/tournaments/${tournamentId}/teams/${teamId}`
