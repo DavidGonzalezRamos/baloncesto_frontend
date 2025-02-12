@@ -10,7 +10,10 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getTournament } from "../../api/TournamentAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEllipsisVertical,
+  faTrophy,
+} from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../hooks/useAuth"; // Importar el hook de autenticación
 import DeleteTournamentModal from "../../components/tournaments/DeleteTournamentModal";
 
@@ -148,13 +151,20 @@ export default function MenuTournaments() {
             )}
           </>
         ) : (
-          <div className="p-6 bg-white rounded-lg shadow-md mb-6 text-center mt-4 ">
-            <p className="font-mono text-2xl py-20 text-black">
-              Actualmente no hay un torneo en curso
+          <div className="flex flex-col items-center justify-center bg-white p-6 rounded-xl shadow-md mt-5">
+            <FontAwesomeIcon
+              icon={faTrophy}
+              className="text-blue-500 text-6xl mb-4"
+            />
+            <h2 className="text-2xl font-semibold text-gray-700">
+              No hay torneos registrados
+            </h2>
+            <p className="text-gray-500 text-lg mt-2">
+              Vuelve más tarde para ver actualizaciones.
             </p>
             {/* Mostrar el botón solo si el usuario es admin */}
             {isAdmin && (
-              <button className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-black py-4 px-12 rounded-full">
+              <button className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-black py-4 px-12 rounded-full mt-6">
                 <Link to="/tournaments/create">Crear Nuevo Torneo</Link>
               </button>
             )}

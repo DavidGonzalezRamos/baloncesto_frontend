@@ -53,7 +53,7 @@ export default function TeamPlayersView() {
             <PlayerList players={data.players} />
           ) : null}
         </div>
-        <CreateInfoTeams />
+        {data.players && data.players.length > 0 ? <CreateInfoTeams /> : null}
         <AddPlayerModal />
         <EditPlayerData />
         <DeletePlayerModal />

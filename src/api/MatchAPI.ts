@@ -19,3 +19,15 @@ export async function createMatch({formData, tournamentId}: Pick<MatchAPI, 'form
     }
   }
 }
+
+export async function getMatches(tournamentId: Tournament["_id"]) {
+  try {
+    const url = `/matches/${tournamentId}/matches`
+    const { data } = await api.get(url)
+    return data
+  } catch (error) {
+    if(isAxiosError(error) && error.response){
+      throw new Error(error.response.data.error)
+    }
+  }
+}
