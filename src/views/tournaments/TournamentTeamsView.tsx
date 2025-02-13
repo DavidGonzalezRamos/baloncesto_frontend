@@ -56,13 +56,17 @@ export default function TournamentTeamsView() {
                 >
                   Agregar equipo
                 </button>
-                <button
-                  type="button"
-                  className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-2 px-4 rounded-lg"
-                  onClick={() => navigate(location.pathname + "?newMatch=true")}
-                >
-                  Generar partido
-                </button>
+                {data.teams.length > 1 && (
+                  <button
+                    type="button"
+                    className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-2 px-4 rounded-lg"
+                    onClick={() =>
+                      navigate(location.pathname + "?newMatch=true")
+                    }
+                  >
+                    Generar partido
+                  </button>
+                )}
               </>
             )}
           </nav>
