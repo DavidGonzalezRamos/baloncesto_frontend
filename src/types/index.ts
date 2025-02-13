@@ -83,6 +83,7 @@ export type Player = z.infer<typeof playerSchema>
 export type PlayerFormData = Pick<Player, 'name' | 'lastName' | 'numberIpn' |'number' | 'curp' | 'position' |'idCard' | 'schedulePlayer' | 'photoPlayer' | 'examMed' >
 
 //Matches
+export const matchSatusSchema = z.enum(["inProgress", "finished"])
 export const matchSchema = z.object({
   _id: z.string(),
   teamLocal: z.string(),
@@ -92,8 +93,10 @@ export const matchSchema = z.object({
   teamWinner: z.string(),
   date: z.union([z.date(), z.string()]),
   place: z.string(),
+  branchMatch: z.string(),
   tournament: z.string(),
+  status: matchSatusSchema
 })
 export type Match = z.infer<typeof matchSchema>
-export type MatchFormData = Pick<Match, 'teamLocal' | 'teamVisitor' | 'scoreLocal' | 'scoreVisitor' | 'teamWinner' | 'date' | 'place' >
+export type MatchFormData = Pick<Match, 'teamLocal' | 'teamVisitor' | 'scoreLocal' | 'scoreVisitor' | 'teamWinner' | 'date' | 'place' | 'branchMatch' >
 

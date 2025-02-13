@@ -6,6 +6,7 @@ import TeamList from "../../components/teams/TeamList";
 import EditTeamData from "../../components/teams/EditTeamData";
 import { useAuth } from "../../hooks/useAuth";
 import DeleteTeamModal from "../../components/teams/DeleteTeamModal";
+import AddMatchModal from "../../components/matches/AddMatchModal";
 
 export default function TournamentTeamsView() {
   const navigate = useNavigate();
@@ -47,13 +48,22 @@ export default function TournamentTeamsView() {
           </div>
           <nav className="my-0 gap-3 mt-5">
             {user?.role === "admin" && (
-              <button
-                type="button"
-                className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-2 px-4 rounded-lg"
-                onClick={() => navigate(location.pathname + "?newTeam=true")}
-              >
-                Agregar equipo
-              </button>
+              <>
+                <button
+                  type="button"
+                  className="mr-7 font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-2 px-4 rounded-lg"
+                  onClick={() => navigate(location.pathname + "?newTeam=true")}
+                >
+                  Agregar equipo
+                </button>
+                <button
+                  type="button"
+                  className="font-mono text-2xl font-semibold bg-gradient-to-b from-blue-300 to-blue-600 text-white py-2 px-4 rounded-lg"
+                  onClick={() => navigate(location.pathname + "?newMatch=true")}
+                >
+                  Generar partido
+                </button>
+              </>
             )}
           </nav>
         </div>
@@ -65,6 +75,7 @@ export default function TournamentTeamsView() {
         <AddTeamModal />
         <EditTeamData />
         <DeleteTeamModal />
+        <AddMatchModal />
       </>
     );
 }
